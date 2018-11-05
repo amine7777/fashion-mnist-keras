@@ -10,9 +10,9 @@ from keras.layers.normalization import BatchNormalization
 from keras import backend as K
 filepath = "/home/amine/Desktop/SI/SystIntell/model_fashion-mnist-best_cnn.h5"
 
-batch_size = 128
+batch_size = 120
 num_classes = 10
-epochs = 15
+epochs = 100
 
 img_rows, img_cols = 28, 28
 
