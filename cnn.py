@@ -54,9 +54,9 @@ model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimi
 model.summary()
 
 #checkpoint
-checkpointer=ModelCheckpoint(filepath, monitor='val_loss', verbose=0, save_best_only=False, save_weights_only=False, mode='auto', period=1)
+checkpointer=ModelCheckpoint(filepath, monitor='val_accuracy', verbose=0, save_best_only=False, save_weights_only=False, mode='auto', period=1)
 #using tensorboard callback to visualize the CNN algorithm
-tensor_b =keras.callbacks.TensorBoard(log_dir='./logs', histogram_freq=0, batch_size=32, write_graph=True, write_grads=False, write_images=False, embeddings_freq=0, embeddings_layer_names=None, embeddings_metadata=None, embeddings_data=None)
+tensor_b =keras.callbacks.TensorBoard(log_dir='./logs', histogram_freq=0, batch_size=batch_size, write_graph=True, write_grads=False, write_images=False, embeddings_freq=0, embeddings_layer_names=None, embeddings_metadata=None, embeddings_data=None)
 
 #DataAugmentation
 gen = ImageDataGenerator(
