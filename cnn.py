@@ -61,13 +61,29 @@ model.add(Dropout(0.3))
 model.add(Dense(num_classes, activation='softmax'))
 
 model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(), metrics=['accuracy'])
+model.summary()
 
 #using tensorboard callback to visualize the CNN algorithm
-tensor_b  =keras.callbacks.TensorBoard(log_dir='./logs', histogram_freq=0, batch_size=32, write_graph=True, write_grads=False, write_images=False, embeddings_freq=0, embeddings_layer_names=None, embeddings_metadata=None, embeddings_data=None)
+tensor_b =keras.callbacks.TensorBoard(log_dir='./logs', histogram_freq=0, batch_size=32, write_graph=True, write_grads=False, write_images=False, embeddings_freq=0, embeddings_layer_names=None, embeddings_metadata=None, embeddings_data=None)
+
+#DataAugmentation
+gen = ImageDataGenerator(
+        shear_range=0.2,
+        zoom_range=0.2,
+        horizontal_flip=True)
+generator = gen.flow(x_train, y_train, batch_size) 
+model.fit_generator(
+        generator,
+        steps_per_epoch=60000/batch_size,
+        epochs=epochs,
+        validation_data=(x_test, y_test),
+        validation_steps=10000/batch_size,
+        use_multiprocessing=False,
+        shuffle=True
+        )
 
 
-
-model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, verbose=1, validation_data=(x_test, y_test),callbacks=[tensor_b])
+model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, verbose=1, git validation_data=(x_test, y_test),callbacks=[tensor_b])
 
 score = model.evaluate(x_test, y_test, verbose = 0)
 
